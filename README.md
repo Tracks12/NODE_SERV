@@ -11,3 +11,6 @@ Pré-requis :
 Fonctionnement :
 > - Lancement du serveur : <pre>node server.js -start</pre>
 > - Listing des fichiers serveur : <pre>node server.js -ls</pre>
+<br />
+
+ATTENTION : Cette version ne peut cependant pas éxecuter les scripts PHP !
