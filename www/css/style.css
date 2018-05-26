@@ -1,0 +1,36 @@
+/* style.css */
+
+* { margin: 0; padding: 0; }
+html { background-color: #EEEEEE; color: #333333; font-family: Ubuntu; height: 100%; width: 100%; }
+body { height: 100%; width: 100%; }
+a { text-decoration: none; }
+
+/* HEADER */
+header { background-color: #FEFEFE; height: 10%; padding-left: 2%; position: relative; }
+header svg { enable-background: new 0 0 128 128; height: 100%; left: 10px; position: absolute; width: auto; }
+header svg .st0 { fill:#333333; }
+header svg .st1 { fill:#81CF08; }
+header h1 { margin-left: 15%; position: relative; top: 25%; }
+header div { position: absolute; right: 30px; top: 30%; }
+
+/* NAV */
+nav { background-color: #333333; bottom: 0; position: absolute; top: 10%; width: 180px; }
+nav ul { list-style-type: none; position: relative; }
+nav ul li { border-bottom: 1px solid #222222; padding: 20px; transition: 0.2s all; }
+nav ul li:hover { background-color: #444444; }
+nav ul li a, nav ul li a:visited { color: #DDDDDD; padding: 20px; transition: 0.1s all; }
+nav ul li a:hover { color: #FEFEFE; }
+
+/* SECTION */
+section { bottom: 0; left: 180px; overflow: auto; padding: 25px; position: absolute; right: 0; top: 10%; }
+section aside { background-color: #FEFEFE; border-radius: 4px; position: relative; }
+section aside h2 { border-bottom: 1px solid #EEEEEE; padding: 15px; }
+section aside p { line-height: 150%; padding: 30px; }
+section aside pre { background-color: #DDDDDD; border-radius: 4px; margin: 20px; line-height: 120%; padding: 10px; white-space: pre-wrap; }
+section aside a, section aside a:visited { color: #33AA33; }
+
+/* FOOTER */
+footer { bottom: 0; color: #888888; position: absolute; top: 95%; text-align: center; width: 180px; }
+footer a { color: #888888; }
+
+/* END */
