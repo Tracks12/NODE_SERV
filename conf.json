@@ -1,0 +1,23 @@
+{
+	"http" : {
+		"www" : "./www/",
+		"port" : 69,
+		"index" : "index.html",
+		"mimes" : {
+			"php" : "text/php",
+			"html" : "text/html",
+			"svg" : "text/html",
+			"css" : "text/css",
+			"js" : "application/javascript",
+			"ttf" : "font/ttf",
+			"ico" : "image/ico",
+			"png" : "image/png",
+			"jpg" : "image/jpg",
+			"jpeg" : "image/jpeg",
+			"gif" : "image/gif"
+		},
+		"error" : {
+			"404" : "404.html"
+		}
+	}
+}
