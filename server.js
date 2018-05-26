@@ -1,13 +1,13 @@
 var conf = require('./conf.json'),
-		http = require('http'),
-		url = require('url'),
-		fs = require('fs');
+    http = require('http'),
+    url = require('url'),
+    fs = require('fs');
 
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
-			info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },
-			error, code, today = new Date(),
-			result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
+            info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },
+            error, code, today = new Date(),
+            result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
 	
 	if(info['path'] == '') { pathname = pathname+conf.http.index; info['extension'] = 'html'; }
 	
