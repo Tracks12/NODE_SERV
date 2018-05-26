@@ -1,7 +1,7 @@
 var conf = require('./conf.json'),
-		http = require('http'),
-		url = require('url'),
-		fs = require('fs');
+    http = require('http'),
+    url = require('url'),
+    fs = require('fs');
 
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
