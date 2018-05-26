@@ -5,21 +5,21 @@ var conf = require('./conf.json'),
 
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
-            extension = pathname.split('.').pop(),
+            info = { "extension" : pathname.split('.').pop(), "path" : pathname.split('/').pop() },
             error, code, today = new Date(),
             result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
 	
-	if(extension == '') { pathname = pathname+conf.http.index; extension = 'html'; }
+	if(info["path"] == '') { pathname = pathname+conf.http.index; info["extension"] = 'html'; }
 	
 	try {
-		response.writeHead(200, { 'Content-Type' : conf.http.mimes[extension], "Charset" : conf.http.charset });
+		response.writeHead(200, { 'Content-Type' : conf.http.mimes[info["extension"]], "Charset" : conf.http.charset });
 		response.end(fs.readFileSync(conf.http.www+pathname));
 		result += 'code 200 to : '.toLocaleUpperCase()+pathname;
 	}
 	catch(e) {
-		switch(extension) {
+		switch(info["path"]) {
 			case '.htaccess': code = 403;
-				error = '<div><h1>Erreur '+code+'</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+extension+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
+				error = '<div><h1>Erreur '+code+'</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+info["path"]+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
 				break;
 			default: code = 404;
 				error = '<div><h1>Erreur '+code+'</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
