@@ -1,15 +1,15 @@
 var conf = require('./conf.json'),
-    http = require('http'),
-    url = require('url'),
-    fs = require('fs');
+		http = require('http'),
+		url = require('url'),
+		fs = require('fs');
 
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
-            path = pathname.split('/').pop(),
-            error,
-            extension = pathname.split('.').pop(),
-            today = new Date(),
-            result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
+			path = pathname.split('/').pop(),
+			error, code,
+			extension = pathname.split('.').pop(),
+			today = new Date(),
+			result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
 	
 	if(path == '') { pathname = pathname+conf.http.index; extension = 'html'; }
 	
@@ -20,16 +20,18 @@ function onRequest(request, response) {
 	}
 	catch(e) {
 		switch(path) {
-			case '.htaccess': error = '<div><h1>Erreur 403</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+path+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
-				response.writeHead(403, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
-				result += 'code 403 to : '.toLocaleUpperCase()+pathname+'\n'+e;
+			case '.htaccess': code = 403;
+				error = '<div><h1>Erreur 403</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+path+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
 				break;
-			default: error = '<div><h1>Erreur 404</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
-				response.writeHead(404, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
-				result += 'code 404 to : '.toLocaleUpperCase()+pathname+'\n'+e;
+			default: code = 404;
+				error = '<div><h1>Erreur 404</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
 				break;
-		} response.end(fs.readFileSync(conf.http.error)+error);
-	} console.log(result);
+		}
+		
+		response.writeHead(code, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
+		result += 'code '+code+' to : '.toLocaleUpperCase()+pathname+'\n'+e;
+		response.end(fs.readFileSync(conf.http.error)+error);
+	}	console.log(result);
 }
 
 switch(process.argv[2]) {
