@@ -16,9 +16,9 @@ Fonctionnement :
 Arborescence :
 > <pre>
 > <a href="https://github.com/Tracks12/NODE_SERV">NODE_SERV ./</a> <- Racine du Serveur
-> | <a href="https://github.com/Tracks12/NODE_SERV/blob/master/404.html">404.html</a>
-> | <a href="https://github.com/Tracks12/NODE_SERV/blob/master/conf.json">conf.json</a>
-> | <a href="https://github.com/Tracks12/NODE_SERV/blob/master/server.js">server.js</a>
+> | <a href="https://github.com/Tracks12/NODE_SERV/blob/master/404.html">404.html</a>   <- Apparence de l'erreur 404
+> | <a href="https://github.com/Tracks12/NODE_SERV/blob/master/conf.json">conf.json</a> <- Fichier de configuration serveur
+> | <a href="https://github.com/Tracks12/NODE_SERV/blob/master/server.js">server.js</a> <- Script serveur
 > |
 > \---<a href="https://github.com/Tracks12/NODE_SERV/tree/master/www">www/</a> <- Racine du Site
 > </pre>
