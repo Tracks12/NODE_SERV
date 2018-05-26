@@ -21,10 +21,10 @@ function onRequest(request, response) {
 	catch(e) {
 		switch(path) {
 			case '.htaccess': code = 403;
-				error = '<div><h1>Erreur 403</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+path+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
+				error = '<div><h1>Erreur '+code+'</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+path+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
 				break;
 			default: code = 404;
-				error = '<div><h1>Erreur 404</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
+				error = '<div><h1>Erreur '+code+'</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
 				break;
 		}
 		
