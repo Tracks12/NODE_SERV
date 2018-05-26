@@ -25,12 +25,8 @@ function onRequest(request, response) {
 }
 
 switch(process.argv[2]) {
-	case '-ls': var files = new Array(), i = new Array(0, 0, 0, 0);
-		fs.readdirSync('.').forEach(file => { files[i[0]] = file; i[0]++; });
-		fs.readdirSync(files[3]).forEach(file => { files[i[1]] = file; i[1]++; });
-		console.log(files);
-		break;
-	case '-start': http.createServer(onRequest).listen(conf.http.port);
+	case '-start':
+	default: http.createServer(onRequest).listen(conf.http.port);
 		console.log('Node JS Server is starting...\n');
 		break;
 }
