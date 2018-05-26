@@ -5,12 +5,13 @@ var conf = require('./conf.json'),
 
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
+			path = pathname.split('/').pop(),
 			error,
 			extension = pathname.split('.').pop(),
 			today = new Date(),
 			result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
 	
-	if(pathname.split('/').pop() == '') { pathname = pathname+conf.http.index; extension = 'html'; }
+	if(path == '') { pathname = pathname+conf.http.index; extension = 'html'; }
 	
 	try {
 		response.writeHead(200, { 'Content-Type' : conf.http.mimes[extension], "Charset" : conf.http.charset });
@@ -18,18 +19,16 @@ function onRequest(request, response) {
 		result += 'code 200 to : '.toLocaleUpperCase()+pathname;
 	}
 	catch(e) {
-		if(pathname.split('/').pop() == '.htaccess') {
-			error = '<div><h1>Erreur 403</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+pathname.split('/').pop()+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
-			response.writeHead(403, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
-			response.end(fs.readFileSync(conf.http.error['403'])+error);
-			result += 'code 403 to : '.toLocaleUpperCase()+pathname+'\n'+e;
-		}
-		else {
-			error = '<div><h1>Erreur 404</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
-			response.writeHead(404, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
-			response.end(fs.readFileSync(conf.http.error['404'])+error);
-			result += 'code 404 to : '.toLocaleUpperCase()+pathname+'\n'+e;
-		}
+		switch(path) {
+			case '.htaccess': error = '<div><h1>Erreur 403</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+path+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
+				response.writeHead(403, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
+				result += 'code 403 to : '.toLocaleUpperCase()+pathname+'\n'+e;
+				break;
+			default: error = '<div><h1>Erreur 404</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
+				response.writeHead(404, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
+				result += 'code 404 to : '.toLocaleUpperCase()+pathname+'\n'+e;
+				break;
+		} response.end(fs.readFileSync(conf.http.error)+error);
 	} console.log(result);
 }
 

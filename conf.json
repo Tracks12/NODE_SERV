@@ -4,6 +4,7 @@
 		"port" : 69,
 		"index" : "index.html",
 		"charset" : "utf-8",
+		"error" : "ERROR.html",
 		"mimes" : {
 			"php" : "text/php",
 			"html" : "text/html",
@@ -16,10 +17,6 @@
 			"jpg" : "image/jpg",
 			"jpeg" : "image/jpeg",
 			"gif" : "image/gif"
-		},
-		"error" : {
-			"403" : "ERROR.html",
-			"404" : "ERROR.html"
 		}
 	}
 }
