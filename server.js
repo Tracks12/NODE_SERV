@@ -27,8 +27,8 @@ function onRequest(request, response) {
 		}
 		
 		response.writeHead(code, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
-		result += 'code '+code+' to : '.toLocaleUpperCase()+pathname+'\n'+e;
 		response.end(fs.readFileSync(conf.http.error)+error);
+		result += 'code '+code+' to : '.toLocaleUpperCase()+pathname+'\n'+e;
 	}	console.log(result);
 }
 
