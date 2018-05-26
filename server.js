@@ -9,7 +9,7 @@ function onRequest(request, response) {
 			today = new Date(),
 			result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
 
-	if(pathname == '/') { pathname = conf.http.index; extension = 'html'; }
+	if(pathname.split('/').pop() == '') { pathname = pathname+conf.http.index; extension = 'html'; }
 
 	try {
 		response.writeHead(200, {'Content-Type' : conf.http.mimes[extension]});
