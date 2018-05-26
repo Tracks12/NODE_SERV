@@ -3,6 +3,7 @@
 		"www" : "./www/",
 		"port" : 69,
 		"index" : "index.html",
+		"charset" : "utf-8",
 		"mimes" : {
 			"php" : "text/php",
 			"html" : "text/html",
@@ -17,7 +18,8 @@
 			"gif" : "image/gif"
 		},
 		"error" : {
-			"404" : "404.html"
+			"403" : "ERROR.html",
+			"404" : "ERROR.html"
 		}
 	}
 }
