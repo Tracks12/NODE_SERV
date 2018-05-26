@@ -5,3 +5,7 @@ Script JavaScript servant à lancer un serveur web local à partir des modules N
 Pré-requis :
 > - Installation des paquets Node JS<br />
 > <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>
+
+Fonctionnement :
+> - Lancement du serveur : <pre>node server.js  -start</pre><br />
+> - Listing des fichiers serveur : <pre></pre><br />
