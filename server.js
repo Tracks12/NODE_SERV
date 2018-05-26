@@ -6,8 +6,8 @@ var conf = require('./conf.json'),
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
             path = pathname.split('/').pop(),
-            error, code,
             extension = pathname.split('.').pop(),
+            error, code,
             today = new Date(),
             result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
 	
