@@ -40,14 +40,14 @@
 <li></li>
 <li>function onRequest(request, response) {</li>
 <li>	var pathname = url.parse(request.url).pathname,</li>
-<li>            info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },</li>
-<li>            error, code, today = new Date(),</li>
-<li>            result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';</li>
+<li>       info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },</li>
+<li>       error, code, today = new Date(),</li>
+<li>       result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';</li>
 <li>  </li>
 <li>	if(info['path'] == '') { pathname = pathname+conf.http.index; info['extension'] = 'html'; }</li>
 <li>	</li>
 <li>	try {</li>
-<li>		response.writeHead(200, { 'Content-Type' : conf.http.mimes[info['extension']], "Charset" : conf.http.charset });</li>
+<li>		response.writeHead(200, { 'Content-Type' : conf.http.mimes[info['extension']], 'Charset' : conf.http.charset });</li>
 <li>		response.end(fs.readFileSync(conf.http.www+pathname));</li>
 <li>		result += 'code 200 to : '.toLocaleUpperCase()+pathname;</li>
 <li>	}</li>
