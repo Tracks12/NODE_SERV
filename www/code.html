@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css" />
 		<script language="javascript" type="text/javascript" src="./js/script.js"></script>
 	</head>
-	<body onload="startTime(); check();">
+	<body onload="startTime(); check(); editor();">
 		<header>
 			<a href="/">
 				<svg version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
@@ -25,6 +25,7 @@
 		<nav>
 			<ul>
 				<li class="nav"><a href="./index.html">Accueil</a></li>
+				<li class="nav"><a href="./tree.html">Plan du Site</a></li>
 				<li class="nav"><a href="./code.html">Code Source</a></li>
 				<li class="nav"><a href="./about.html">Plus</a></li>
 			</ul>
@@ -32,78 +33,84 @@
 		<section>
 			<aside>
 				<h2>Code Source Du Server.js</h2>
-				<pre>var conf = require('./conf.json'),
-    http = require('http'),
-    url = require('url'),
-    fs = require('fs');
-
-function onRequest(request, response) {
-	var pathname = url.parse(request.url).pathname,
-            extension = pathname.split('.').pop(),
-            today = new Date(),
-            result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
-
-	if(pathname == '/') { pathname = conf.http.index; extension = 'html'; }
-
-	try {
-		response.writeHead(200, {'Content-Type' : conf.http.mimes[extension]});
-		response.end(fs.readFileSync(conf.http.www+pathname));
-		result += 'code 200 to : '.toLocaleUpperCase()+pathname;
-	}
-	catch(e) {
-		var error = '&#60;div&#62;&#60;h1&#62;Erreur 404&#60;/h1&#62;&#60;h2&#62;Fichier non trouvé&#60;/h2&#62;&#60;br /&#62;&#60;p&#62;Le chemin "'+pathname+'" n\'existe pas&#60;/p&#62;&#60;br /&#62;&#60;a href="/"&#62;Retour à l\'Index&#60;/a&#62;&#60;/div&#62;';
-		response.writeHead(404, {'Content-Type' : conf.http.mimes['html']});
-		response.end(fs.readFileSync(conf.http.error['404'])+error);
-		result += 'code 404 to : '.toLocaleUpperCase()+pathname+'\n'+e;
-	} console.log(result);
-}
-
-switch(process.argv[2]) {
-	case '-ls': var files = new Array(), i = new Array(0, 0);
-		fs.readdirSync('.').forEach(file => { files[i[0]] = file; i[0]++; });
-		fs.readdirSync(files[3]).forEach(file => { files[i[1]] = file; i[1]++; });
-		console.log(files);
-		break;
-	case '-start': http.createServer(onRequest).listen(conf.http.port);
-		console.log('Node JS Server is starting...\n');
-		break;
-	case '-h':
-	case '--help':
-	default: var helper = 'server.js  -start\t: Démarre un serveur local sur le port '+conf.http.port+'\n';
-		helper += '\t   -ls\t\t: Liste les fichiers présents dans le répertoire "'+conf.http.www+'"\n';
-		helper += '\t   -h\t\t: Affiche les arguments de commandes\n\n';
-		helper += '\t   --help\t: Affiche les arguments de commandes\n\n';
-		console.log(helper);
-		break;
-}</pre>
+				<pre><ul><li>var conf = require('./conf.json'),</li>
+<li>    http = require('http'),</li>
+<li>    url = require('url'),</li>
+<li>    fs = require('fs');</li>
+<li></li>
+<li>function onRequest(request, response) {</li>
+<li>	var pathname = url.parse(request.url).pathname,</li>
+<li>            info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },</li>
+<li>            error, code, today = new Date(),</li>
+<li>            result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';</li>
+<li>  </li>
+<li>	if(info['path'] == '') { pathname = pathname+conf.http.index; info['extension'] = 'html'; }</li>
+<li>	</li>
+<li>	try {</li>
+<li>		response.writeHead(200, { 'Content-Type' : conf.http.mimes[info['extension']], "Charset" : conf.http.charset });</li>
+<li>		response.end(fs.readFileSync(conf.http.www+pathname));</li>
+<li>		result += 'code 200 to : '.toLocaleUpperCase()+pathname;</li>
+<li>	}</li>
+<li>	catch(e) {</li>
+<li>		switch(info['path']) {</li>
+<li>			case '.htaccess': code = 403;</li>
+<li>				error = '&#60;div&#62;&#60;h1&#62;Erreur '+code+'&#60;/h1&#62;&#60;h2&#62;Accès aux fichier refusé&#60;/h2&#62;&#60;br /&#62;&#60;p&#62;Le fichier "'+info['path']+'" n\'est pas accessible&#60;/p&#62;&#60;br /&#62;&#60;a href="/"&#62;Retour à l\'Index&#60;/a&#62;&#60;/div&#62;';</li>
+<li>				break;</li>
+<li>			default: code = 404;</li>
+<li>				error = '&#60;div&#62;&#60;h1&#62;Erreur '+code+'&#60;/h1&#62;&#60;h2&#62;Fichier non trouvé&#60;/h2&#62;&#60;br /&#62;&#60;p&#62;Le chemin "'+pathname+'" n\'existe pas&#60;/p&#62;&#60;br /&#62;&#60;a href="/"&#62;Retour à l\'Index&#60;/a&#62;&#60;/div&#62;';</li>
+<li>				break;</li>
+<li>		}</li>
+<li>		</li>
+<li>		response.writeHead(code, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });</li>
+<li>		response.end(fs.readFileSync(conf.http.error)+error);</li>
+<li>		result += 'code '+code+' to : '.toLocaleUpperCase()+pathname+'\n'+e;</li>
+<li>	} console.log(result);</li>
+<li>}</li>
+<li></li>
+<li>switch(process.argv[2]) {</li>
+<li>	case '-ls': var files = new Array(), i = new Array(0, 0);</li>
+<li>		fs.readdirSync(conf.http.www).forEach(file => { files[i[1]] = file; i[1]++; });</li>
+<li>		console.log(files);</li>
+<li>		break;</li>
+<li>	case '-start': http.createServer(onRequest).listen(conf.http.port);</li>
+<li>		console.log('Node JS Server is starting...\n');</li>
+<li>		break;</li>
+<li>	case '-h':</li>
+<li>	case '--help':</li>
+<li>	default: var helper = 'server.js  -start\t: Démarre un serveur local sur le port '+conf.http.port+'\n';</li>
+<li>		helper += '\t   -ls\t\t: Liste les fichiers présents dans le répertoire "'+conf.http.www+'"\n';</li>
+<li>		helper += '\t   -h\t\t: Affiche les arguments de commandes\n\n';</li>
+<li>		helper += '\t   --help\t: Affiche les arguments de commandes\n\n';</li>
+<li>		console.log(helper);</li>
+<li>		break;</li>
+<li>}</li></ul></pre>
 				<br />
 			</aside>
 			<br /><br />
 			<aside>
 				<h2>Code Source Du Conf.json</h2>
-					<pre>{
-	"http" : {
-		"www" : "./www/",
-		"port" : 69,
-		"index" : "index.html",
-		"mimes" : {
-			"php" : "text/php",
-			"html" : "text/html",
-			"svg" : "text/html",
-			"css" : "text/css",
-			"js" : "application/javascript",
-			"ttf" : "font/ttf",
-			"ico" : "image/ico",
-			"png" : "image/png",
-			"jpg" : "image/jpg",
-			"jpeg" : "image/jpeg",
-			"gif" : "image/gif"
-		},
-		"error" : {
-			"404" : "404.html"
-		}
-	}
-}</pre>
+					<pre><ul><li>{</li>
+<li>	"http" : {</li>
+<li>		"www" : "./www/",</li>
+<li>		"port" : 69,</li>
+<li>		"index" : "index.html",</li>
+<li>		"charset" : "utf-8",</li>
+<li>		"error" : "ERROR.html",</li>
+<li>		"mimes" : {</li>
+<li>			"php" : "text/php",</li>
+<li>			"html" : "text/html",</li>
+<li>			"svg" : "text/html",</li>
+<li>			"css" : "text/css",</li>
+<li>			"js" : "application/javascript",</li>
+<li>			"ttf" : "font/ttf",</li>
+<li>			"ico" : "image/ico",</li>
+<li>			"png" : "image/png",</li>
+<li>			"jpg" : "image/jpg",</li>
+<li>			"jpeg" : "image/jpeg",</li>
+<li>			"gif" : "image/gif"</li>
+<li>		}</li>
+<li>	}</li>
+<li>}</li></ul></pre>
 				<br />
 			</aside>
 		</section>
