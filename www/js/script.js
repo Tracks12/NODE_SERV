@@ -32,8 +32,10 @@ function editor() {
 	
 	for(var i = 0; i < 2; i++) {
 		for(var j = 0; j < pre[i].getElementsByTagName('li').length; j++) {
-			if(j < 10) { s = ' '+j; } else { s = j; }
+			s = j;
+			if(j < 10) { s = ' '+j; }
 			pre[i].getElementsByTagName('li')[j].innerHTML = s+' | '+pre[i].getElementsByTagName('li')[j].innerHTML
+			if(j%2) { pre[i].getElementsByTagName('li')[j].style.backgroundColor = '#EEEEEE'; }
 		}
 	}
 }
