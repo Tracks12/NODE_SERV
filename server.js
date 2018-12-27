@@ -37,14 +37,21 @@ switch(process.argv[2]) {
 		fs.readdirSync(conf.http.www).forEach(file => { files[i[1]] = file; i[1]++; });
 		console.log(files);
 		break;
+	case '-p':
+	case '--port': if(!process.argv[3]) { console.log('No Port Specified !'); break; }
+		http.createServer(onRequest).listen(process.argv[3]);
+		console.log('Node JS server is running on 127.0.0.1:'+process.argv[3]);
+		break;
 	case '-start': http.createServer(onRequest).listen(conf.http.port);
 		console.log('Node JS Server is starting...\n');
 		break;
 	case '-h':
 	case '--help':
 	default: var helper = 'server.js  -start\t: Démarre un serveur local sur le port '+conf.http.port+'\n';
+		helper += '\t   -p\t\t: Spécifie le port de connexion du serveur\n';
 		helper += '\t   -ls\t\t: Liste les fichiers présents dans le répertoire "'+conf.http.www+'"\n';
 		helper += '\t   -h\t\t: Affiche les arguments de commandes\n\n';
+		helper += '\t   --port\t: Spécifie le port de connexion du serveur\n';
 		helper += '\t   --help\t: Affiche les arguments de commandes\n\n';
 		console.log(helper);
 		break;
