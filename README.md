@@ -10,7 +10,7 @@ Pré-requis :
 
 Fonctionnement :
 > - Lancement du serveur : <pre>node server.js -start</pre>
-> - Lancement sur port spécifique : <pre>node server.js -p <PORT></pre>
+> - Lancement sur port spécifique : <pre>node server.js -p <<PORT>></pre>
 > - Listing des fichiers serveur : <pre>node server.js -ls</pre>
 <br />
 
