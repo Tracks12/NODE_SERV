@@ -40,7 +40,7 @@ switch(process.argv[2]) {
 	case '-p':
 	case '--port': if(!process.argv[3]) { console.log('No Port Specified !'); break; }
 		http.createServer(onRequest).listen(process.argv[3]);
-		console.log('Node JS server is running on 127.0.0.1:'+process.argv[3]);
+		console.log('Node JS server is running on 127.0.0.1:'+process.argv[3]+'\n');
 		break;
 	case '-start': http.createServer(onRequest).listen(conf.http.port);
 		console.log('Node JS Server is starting...\n');
