@@ -3,6 +3,22 @@ var conf = require('./conf.json'),
     url = require('url'),
     fs = require('fs');
 
+function errorIndex(code, obj) {
+	var msg = new Array();
+	
+	switch(code) {
+		case 403: msg[1] = 'Accès aux fichier refusé';
+			msg[2] = 'Le fichier "'+obj+'" n\'est pas accessible';
+			break;
+		case 404: msg[1] = 'Fichier non trouvé';
+			msg[2] = 'Le chemin "'+obj+'" n\'existe pas';
+			break;
+	}
+	
+	msg[0] = '<div><h1>Erreur '+code+'</h1><h2>'+msg[1]+'</h2><br /><p>'+msg[2]+'</p><br /><a href="/">Retour à l\'Index</a></div>';
+	return Array(code, msg[0]);
+}
+
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
             info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },
@@ -20,17 +36,13 @@ function onRequest(request, response) {
 	}
 	catch(e) {
 		switch(info['path']) {
-			case '.htaccess': code = 403;
-				error = '<div><h1>Erreur '+code+'</h1><h2>Accès aux fichier refusé</h2><br /><p>Le fichier "'+info['path']+'" n\'est pas accessible</p><br /><a href="/">Retour à l\'Index</a></div>';
-				break;
-			default: code = 404;
-				error = '<div><h1>Erreur '+code+'</h1><h2>Fichier non trouvé</h2><br /><p>Le chemin "'+pathname+'" n\'existe pas</p><br /><a href="/">Retour à l\'Index</a></div>';
-				break;
+			case '.htaccess': error = errorIndex(403, info['path']); break;
+			default: error = errorIndex(404, pathname); break;
 		}
 		
-		response.writeHead(code, { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
-		response.end(fs.readFileSync(conf.http.error)+error);
-		result += 'code '+code+' to : '.toLocaleUpperCase()+pathname+'\n'+e;
+		response.writeHead(error[0], { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
+		response.end(fs.readFileSync(conf.http.error)+error[1]);
+		result += 'code '+error[0]+' to : '.toLocaleUpperCase()+pathname+'\n'+e;
 	}	console.log(result);
 }
 
