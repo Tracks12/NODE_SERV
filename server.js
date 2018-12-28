@@ -74,7 +74,7 @@ function onRequest(request, response) {
 	try {
 		response.writeHead(200, { 'Content-Type' : conf.http.mimes[info['extension']], "Charset" : conf.http.charset });
 		response.end(fs.readFileSync(conf.http.www+pathname));
-		result += 'code 200 to : '.toLocaleUpperCase()+pathname;
+		result += color.bright+color.fg.green+'200'+color.reset+' to : '.toLocaleUpperCase()+pathname;
 	}
 	catch(e) {
 		switch(info['path']) {
@@ -84,7 +84,7 @@ function onRequest(request, response) {
 		
 		response.writeHead(error[0], { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
 		response.end(fs.readFileSync(conf.http.error)+error[1]);
-		result += 'code '+error[0]+' to : '.toLocaleUpperCase()+pathname+'\n'+e;
+		result += color.bright+color.fg.red+error[0]+color.reset+' to : '.toLocaleUpperCase()+pathname+'\n'+e;
 	}	console.log(result);
 }
 
