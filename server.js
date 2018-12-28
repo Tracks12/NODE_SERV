@@ -4,37 +4,45 @@ var conf = require('./conf.json'),
 		fs = require('fs');
 
 var color = {
+	bright: "\x1b[1m",
 	reset: "\x1b[0m",
-	underscore: "\x1b[4m",
 	reverse: "\x1b[7m",
+	underscore: "\x1b[4m",
 	
-	fgBlack: "\x1b[30m",
-	fgRed: "\x1b[31m",
-	fgGreen: "\x1b[32m",
-	fgYellow: "\x1b[33m",
-	fgBlue: "\x1b[34m",
-	fgMagenta: "\x1b[35m",
-	fgCyan: "\x1b[36m",
-	fgWhite: "\x1b[37m",
+	fg: {
+		black: "\x1b[30m",
+		blue: "\x1b[34m",
+		cyan: "\x1b[36m",
+		green: "\x1b[32m",
+		magenta: "\x1b[35m",
+		red: "\x1b[31m",
+		white: "\x1b[37m",
+		yellow: "\x1b[33m"
+	},
 	
-	bgBlack: "\x1b[40m",
-	bgRed: "\x1b[41m",
-	bgGreen: "\x1b[42m",
-	bgYellow: "\x1b[43m",
-	bgBlue: "\x1b[44m",
-	bgMagenta: "\x1b[45m",
-	bgCyan: "\x1b[46m",
-	bgWhite: "\x1b[47m"
+	bg: {
+		black: "\x1b[40m",
+		blue: "\x1b[44m",
+		cyan: "\x1b[46m",
+		green: "\x1b[42m",
+		magenta: "\x1b[45m",
+		red: "\x1b[41m",
+		white: "\x1b[47m",
+		yellow: "\x1b[43m"
+	}
 }
 
 function isItem(item) {
 	switch(item.split('.')[1]) {
 		case 'html':
-		case 'svg': return color.fgRed+item+color.reset;
-		case 'css': return color.fgMagenta+item+color.reset;
-		case 'js': return color.fgYellow+item+color.reset;
-		default: return item;
+		case 'svg': item = color.fg.red+item; break;
+		case 'css': item = color.fg.magenta+item; break;
+		case 'js': item = color.fg.yellow+item; break;
+		case 'htaccess': item = color.fg.white+item; break;
+		default: item = color.reverse+item; break;
 	}
+	
+	return color.bright+item+color.reset;
 }
 
 function errIndex(code, obj) {
