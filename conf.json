@@ -6,17 +6,19 @@
 		"charset" : "utf-8",
 		"error" : "ERROR.html",
 		"mimes" : {
-			"php" : "text/php",
-			"html" : "text/html",
-			"svg" : "text/html",
 			"css" : "text/css",
-			"js" : "application/javascript",
-			"ttf" : "font/ttf",
+			"gif" : "image/gif",
+			"html" : "text/html",
 			"ico" : "image/ico",
-			"png" : "image/png",
-			"jpg" : "image/jpg",
 			"jpeg" : "image/jpeg",
-			"gif" : "image/gif"
+			"jpg" : "image/jpg",
+			"js" : "application/javascript",
+			"json" : "text/javascript",
+			"msi" : "application/msi",
+			"png" : "image/png",
+			"svg" : "text/html",
+			"ttf" : "font/ttf",
+			"xz" : "application/xz"
 		}
 	}
 }

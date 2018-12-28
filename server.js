@@ -1,7 +1,41 @@
 var conf = require('./conf.json'),
-    http = require('http'),
-    url = require('url'),
-    fs = require('fs');
+		http = require('http'),
+		url = require('url'),
+		fs = require('fs');
+
+var color = {
+	reset: "\x1b[0m",
+	underscore: "\x1b[4m",
+	reverse: "\x1b[7m",
+	
+	fgBlack: "\x1b[30m",
+	fgRed: "\x1b[31m",
+	fgGreen: "\x1b[32m",
+	fgYellow: "\x1b[33m",
+	fgBlue: "\x1b[34m",
+	fgMagenta: "\x1b[35m",
+	fgCyan: "\x1b[36m",
+	fgWhite: "\x1b[37m",
+	
+	bgBlack: "\x1b[40m",
+	bgRed: "\x1b[41m",
+	bgGreen: "\x1b[42m",
+	bgYellow: "\x1b[43m",
+	bgBlue: "\x1b[44m",
+	bgMagenta: "\x1b[45m",
+	bgCyan: "\x1b[46m",
+	bgWhite: "\x1b[47m"
+}
+
+function isItem(item) {
+	switch(item.split('.')[1]) {
+		case 'html':
+		case 'svg': return color.fgRed+item+color.reset;
+		case 'css': return color.fgMagenta+item+color.reset;
+		case 'js': return color.fgYellow+item+color.reset;
+		default: return item;
+	}
+}
 
 function errorIndex(code, obj) {
 	var msg = new Array();
@@ -21,8 +55,8 @@ function errorIndex(code, obj) {
 
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
-            info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },
-            error, code, today = new Date(), t = new Array(today.getHours(), today.getMinutes(), today.getSeconds());
+			info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },
+			error, code, today = new Date(), t = new Array(today.getHours(), today.getMinutes(), today.getSeconds());
 	
 	for(var i = 0; i <= 2; i++) { if(t[i] < 10) { t[i] = "0"+t[i]; }}
 	var result = '['+t[0]+':'+t[1]+':'+t[2]+'] ';
@@ -47,9 +81,11 @@ function onRequest(request, response) {
 }
 
 switch(process.argv[2]) {
-	case '-ls': var files = new Array(), i = new Array(0, 0);
-		fs.readdirSync(conf.http.www).forEach(file => { files[i[1]] = file; i[1]++; });
-		console.log(files);
+	case '-ls': console.log('Listing du répertoire "'+conf.http.www+'"\n');
+		fs.readdirSync(conf.http.www).forEach(file => {
+			if(!file.split('.')[1]) { file += "/"; }
+			console.log('\t'+isItem(file));
+		});
 		break;
 	case '-p':
 	case '--port': if(!process.argv[3]) { console.log('No Port Specified !'); break; }
@@ -66,7 +102,7 @@ switch(process.argv[2]) {
 		helper += '\t   -ls\t\t: Liste les fichiers présents dans le répertoire "'+conf.http.www+'"\n';
 		helper += '\t   -h\t\t: Affiche les arguments de commandes\n\n';
 		helper += '\t   --port\t: Spécifie le port de connexion du serveur\n';
-		helper += '\t   --help\t: Affiche les arguments de commandes\n\n';
+		helper += '\t   --help\t: Affiche les arguments de commandes\n';
 		console.log(helper);
 		break;
 }
