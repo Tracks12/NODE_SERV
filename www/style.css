@@ -1,0 +1,50 @@
+/* style.css */
+
+* { margin: 0; padding: 0; }
+html, input { font-family: Ubuntu; }
+html { background-color: #EEEEEE; color: #333333; height: 100%; width: 100%; }
+body { height: 100%; width: 100%; }
+a { text-decoration: none; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { height: 100%; width: 5px; }
+::-webkit-scrollbar:vertical { height: 100%; width: 8px; }
+::-webkit-scrollbar:horizontal { height: 8px; width: 100%; }
+::-webkit-scrollbar-track-piece { margin: 25px; }
+::-webkit-scrollbar-thumb { background-color: #AAAAAA; border-radius: 50px; }
+::-webkit-scrollbar-thumb:hover { background-color: #999999; }
+::-webkit-scrollbar-button { height: 0; width: 0; }
+
+/* HEADER */
+header { background-color: #FEFEFE; box-shadow: 0 0 15px #333333; height: 10%; padding-left: 2%; position: relative; z-index: 1; }
+header svg { enable-background: new 0 0 128 128; height: 100%; left: 10px; position: absolute; width: auto; }
+header svg .st0 { fill: #333333; }
+header svg .st1 { fill: #81CF08; }
+header h1 { margin-left: 15%; position: relative; top: 25%; text-shadow: 1px 1px 1px #BBBBBB; }
+header div { position: absolute; right: 30px; top: 30%; }
+
+/* NAV */
+nav { background-color: #333333; bottom: 0; overflow: auto; position: absolute; top: 10%; width: 180px; }
+nav ul { list-style-type: none; position: relative; }
+nav ul li { border-bottom: 1px solid #222222; padding: 20px; transition: 0.2s all; }
+nav ul li:hover { background-color: #444444; }
+nav ul li a, nav ul li a:visited { color: #DDDDDD; padding: 20px; transition: 0.1s all; }
+nav ul li a:hover { color: #FEFEFE; }
+
+/* SECTION */
+section { bottom: 0; left: 180px; overflow: auto; padding: 25px; position: absolute; right: 0; top: 10%; }
+section aside { background-color: #FEFEFE; border-radius: 4px; box-shadow: 5px 5px 10px #BBBBBB; position: relative; }
+section aside h2 { border-bottom: 1px solid #EEEEEE; padding: 15px; }
+section aside p { line-height: 150%; padding: 30px; }
+section aside pre { background-color: #DDDDDD; border-radius: 4px; margin: 20px; line-height: 120%; padding: 10px; white-space: pre-wrap; }
+section aside pre ul { list-style-type: none; margin: 0 -10px; }
+section aside pre li { margin: -6px 0; padding-left: 10px; }
+section aside a, section aside a:visited { color: #33AA33; }
+section aside a input[type=button] { background-color: #339933; border: 0; border-radius: 3px; color: #FFFFFF; cursor: pointer; font-size: 24px; margin: 20px 40px; padding: 20px 50px; transition: 0.2s all; }
+section aside a input[type=button]:hover { background-color: #55AA55; }
+
+/* FOOTER */
+footer { bottom: 0; color: #888888; position: fixed; top: 95%; text-align: center; width: 180px; }
+footer a { color: #888888; }
+
+/* END */
