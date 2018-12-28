@@ -37,7 +37,7 @@ function isItem(item) {
 	}
 }
 
-function errorIndex(code, obj) {
+function errIndex(code, obj) {
 	var msg = new Array();
 	
 	switch(code) {
@@ -70,8 +70,8 @@ function onRequest(request, response) {
 	}
 	catch(e) {
 		switch(info['path']) {
-			case '.htaccess': error = errorIndex(403, info['path']); break;
-			default: error = errorIndex(404, pathname); break;
+			case '.htaccess': error = errIndex(403, info['path']); break;
+			default: error = errIndex(404, pathname); break;
 		}
 		
 		response.writeHead(error[0], { 'Content-Type' : conf.http.mimes['html'], "Charset" : conf.http.charset });
