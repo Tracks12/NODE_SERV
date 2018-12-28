@@ -6,8 +6,10 @@ var conf = require('./conf.json'),
 function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname,
             info = { 'extension' : pathname.split('.').pop(), 'path' : pathname.split('/').pop() },
-            error, code, today = new Date(),
-            result = '['+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds()+'] ';
+            error, code, today = new Date(), t = new Array(today.getHours(), today.getMinutes(), today.getSeconds());
+	
+	for(var i = 0; i <= 2; i++) { if(t[i] < 10) { t[i] = "0"+t[i]; }}
+	var result = '['+t[0]+':'+t[1]+':'+t[2]+'] ';
 	
 	if(info['path'] == '') { pathname = pathname+conf.http.index; info['extension'] = 'html'; }
 	
