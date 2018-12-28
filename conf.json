@@ -1,7 +1,7 @@
 {
 	"http" : {
 		"www" : "./www/",
-		"port" : 69,
+		"port" : 80,
 		"index" : "index.html",
 		"charset" : "utf-8",
 		"error" : "ERROR.html",
