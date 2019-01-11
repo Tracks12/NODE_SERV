@@ -93,15 +93,15 @@ switch(process.argv[2]) {
 		fs.readdirSync(conf.http.www).forEach(file => {
 			if(!file.split('.')[1]) { file += "/"; }
 			console.log('\t'+isItem(file));
-		});
+		}); console.log('');
 		break;
 	case '-p':
-	case '--port': if(!process.argv[3]) { console.log('No Port Specified !'); break; }
+	case '--port': if(!process.argv[3]) { console.log('No port specified !'); break; }
 		http.createServer(onRequest).listen(process.argv[3]);
 		console.log('Node JS server is running on 127.0.0.1:'+process.argv[3]+'\n');
 		break;
 	case '-start': http.createServer(onRequest).listen(conf.http.port);
-		console.log('Node JS Server is starting...\n');
+		console.log('Node JS Server is running...\n');
 		break;
 	case '-h':
 	case '--help':
